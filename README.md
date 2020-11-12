@@ -45,17 +45,17 @@ Baseball
 
 BaseballScreen.java
 
-- [ ] 게임 start, quit
-    - [ ] ing
-    - [ ] end
+- [x] 게임 start, quit
+    - [x] ing
+    - [x] end
 
-- [ ] 정답인지 제출하는 행위 submit
+- [x] 정답인지 제출하는 행위 submit
 
-- [ ] submit 결과 출력
-    + [ ] 현재 결과
-    + [ ] 이후의 상태로 전환
-        * [ ] ing
-        * [ ] end
+- [x] submit 결과 출력
+    + [x] 현재 결과
+    + [x] 이후의 상태로 전환
+        * [x] ing
+        * [x] end
 
 
 BaseballApi.java
