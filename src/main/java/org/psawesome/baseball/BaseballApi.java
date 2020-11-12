@@ -31,8 +31,9 @@ public enum BaseballApi {
         if (checkedOut(answer, inputNumbers)) {
             return new BaseballResponse("end", "3개의 숫자를 모두 맞히셨습니다. 게임 종료");
         }
+        final String result = makeStrike(answer, inputNumbers, 0, 0);
 
-        return new BaseballResponse("ing", "");
+        return new BaseballResponse("ing", result);
     });
 
     Function<BaseballRequest, BaseballResponse> userAct;
@@ -51,4 +52,32 @@ public enum BaseballApi {
         return answer.equals(inputNumbers);
     }
     // end::2-1. checkedOut[]
+
+    // tag::2-2. makeStrike[]
+    public static String makeStrike(String answer, String inputNumbers, int idx, int strike) {
+        strike = increaseIfEqualStrike(answer, inputNumbers, idx, strike);
+        if (idx > answer.length() - 2) {
+            return concatText(strike, " 스트라이크");
+        }
+        return makeStrike(answer, inputNumbers, idx + 1, strike);
+    }
+
+    private static int increaseIfEqualStrike(String answer, String inputNumbers, int idx, int strike) {
+        if (answer.charAt(idx) == inputNumbers.charAt(idx)) {
+            return strike + 1;
+        }
+        return strike;
+    }
+
+    public static String concatText(int count, String text) {
+//        return count == 0 ? "" : String.format("%d%s", count, text);
+        if (count == 0) {
+            return "";
+        }
+        return String.format("%d%s", count, text);
+    }
+
+    // end::2-2. makeStrike[]
+
+
 }

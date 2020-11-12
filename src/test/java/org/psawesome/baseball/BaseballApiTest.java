@@ -1,5 +1,6 @@
 package org.psawesome.baseball;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -83,11 +84,30 @@ public class BaseballApiTest {
                 Arguments.of("523", "523", "3개의 숫자를 모두 맞히셨습니다. 게임 종료", "end"),
                 Arguments.of("156", "156", "3개의 숫자를 모두 맞히셨습니다. 게임 종료", "end"),
                 Arguments.of("981", "981", "3개의 숫자를 모두 맞히셨습니다. 게임 종료", "end"),
-                Arguments.of("592", "591", "", "ing"),
+                Arguments.of("592", "591", "2 스트라이크", "ing"),
                 Arguments.of("732", "156", "", "ing")
         );
     }
     // end::2-1. checkedOut[]
+
+    // tag::2-2. makeStrike[]
+    @ParameterizedTest
+    @DisplayName("Strike 테스트")
+    @MethodSource("expectedStrike")
+    void testStrike(String answer, String inputText, String expectedStrike) {
+        final String strike = BaseballApi.makeStrike(answer, inputText, 0, 0);
+        Assertions.assertEquals(expectedStrike, strike);
+    }
+
+    static Stream<Arguments> expectedStrike() {
+        return Stream.of(
+                Arguments.of("732", "132", "2 스트라이크"),
+                Arguments.of("732", "691", ""),
+                Arguments.of("732", "437", "1 스트라이크"),
+                Arguments.of("732", "731", "2 스트라이크")
+        );
+    }
+    // end::2-2. makeStrike[]
 
     // end::2. 결과 반환하기 []
 

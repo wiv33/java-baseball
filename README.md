@@ -64,7 +64,7 @@ BaseballApi.java
 
 - [-] 결과 반환하기: makeResult
     + [x] checkedOut
-    + [ ] makeStrike
+    + [x] makeStrike
     + [ ] makeBall
 
 
