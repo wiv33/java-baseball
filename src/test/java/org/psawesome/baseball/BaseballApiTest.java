@@ -109,6 +109,35 @@ public class BaseballApiTest {
     }
     // end::2-2. makeStrike[]
 
+
+    // tag::2-3. makeResult - 전체 테스트[]
+    @ParameterizedTest
+    @DisplayName("strike, ball, out, nothing 테스트")
+    @MethodSource("expectedAllTexts")
+    void testDisplayInScreen(String answer, String inputText,
+                             String expectedStrike,
+                             String expectedBall,
+                             String expected) {
+        final BaseballResponse actual = BaseballApi.call(BaseballRequest.builder()
+                .api(BaseballApi.HOW_MUCH_MATCH)
+                .info(answer)
+                .body(inputText)
+                .build());
+        System.out.println(inputText);
+        System.out.println(actual.getBody());
+        Assertions.assertEquals(expected, actual.getBody());
+    }
+
+    static Stream<Arguments> expectedAllTexts() {
+        return Stream.of(
+                Arguments.of("732", "132", "2 스트라이크", "", "2 스트라이크"),
+                Arguments.of("732", "691", "", "", ""),
+                Arguments.of("732", "437", "1 스트라이크", "1볼", "1 스트라이크 1볼"),
+                Arguments.of("732", "731", "2 스트라이크", "", "2 스트라이크"),
+                Arguments.of("732", "732", "", "", "3개의 숫자를 모두 맞히셨습니다. 게임 종료")
+        );
+    }
+    // end::2-3. makeResult - 전체 테스트[]
     // end::2. 결과 반환하기 []
 
 }

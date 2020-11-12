@@ -62,9 +62,9 @@ BaseballApi.java
     
 - [x] 게임 시작 시 1-9까지 3개의 숫자 생성
 
-- [-] 결과 반환하기: makeResult
+- [x] 결과 반환하기: makeResult
     + [x] checkedOut
     + [x] makeStrike
-    + [ ] makeBall
+    + [x] makeBall
 
 

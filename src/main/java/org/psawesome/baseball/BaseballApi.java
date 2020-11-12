@@ -31,8 +31,9 @@ public enum BaseballApi {
         if (checkedOut(answer, inputNumbers)) {
             return new BaseballResponse("end", "3개의 숫자를 모두 맞히셨습니다. 게임 종료");
         }
-        final String result = makeStrike(answer, inputNumbers, 0, 0);
-
+        final String strike = makeStrike(answer, inputNumbers, 0, 0);
+        final String ball = makeBall(answer, inputNumbers, 0, 0);
+        final String result = makeResult(strike, ball);
         return new BaseballResponse("ing", result);
     });
 
@@ -45,6 +46,14 @@ public enum BaseballApi {
     public static BaseballResponse call(BaseballRequest request) {
         return BaseballApi.valueOf(request.getApi().name())
                 .userAct.apply(request);
+    }
+
+    // tag::2. makeResult[]
+    private static String makeResult(String strike, String ball) {
+        if (strike.isEmpty() || ball.isEmpty()) {
+            return String.format("%s%s", strike, ball);
+        }
+        return String.format("%s %s", strike, ball);
     }
 
     // tag::2-1. checkedOut[]
@@ -69,6 +78,26 @@ public enum BaseballApi {
         return strike;
     }
 
+    // end::2-2. makeStrike[]
+
+    // tag::2-3. makeBall[]
+    public static String makeBall(String answer, String inputNumbers, int idx, int ball) {
+        ball = increaseIfEqualBall(answer, inputNumbers, idx, ball);
+        if (idx > answer.length() - 2) {
+            return concatText(ball, "볼");
+        }
+        return makeBall(answer, inputNumbers, idx + 1, ball);
+    }
+
+    private static int increaseIfEqualBall(String answer, String inputNumbers, int idx, int ball) {
+        if (answer.charAt(idx) != inputNumbers.charAt(idx) &&
+                answer.contains(String.valueOf(inputNumbers.charAt(idx)))) {
+            return ball + 1;
+        }
+        return ball;
+    }
+    // end::2-3. makeBall[]
+
     public static String concatText(int count, String text) {
 //        return count == 0 ? "" : String.format("%d%s", count, text);
         if (count == 0) {
@@ -76,8 +105,5 @@ public enum BaseballApi {
         }
         return String.format("%d%s", count, text);
     }
-
-    // end::2-2. makeStrike[]
-
-
+    // end::2. makeResult[]
 }
