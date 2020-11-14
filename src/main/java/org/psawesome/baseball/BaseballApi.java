@@ -28,7 +28,7 @@ public enum BaseballApi {
         final String answer = req.getInfo();
         final String inputNumbers = req.getBody();
 
-        if (checkedOut(answer, inputNumbers)) {
+        if (isOut(answer, inputNumbers)) {
             return new BaseballResponse("end", "3개의 숫자를 모두 맞히셨습니다. 게임 종료");
         }
         final String strike = makeStrike(answer, inputNumbers, 0, 0);
@@ -57,7 +57,7 @@ public enum BaseballApi {
     }
 
     // tag::2-1. checkedOut[]
-    private static boolean checkedOut(String answer, String inputNumbers) {
+    private static boolean isOut(String answer, String inputNumbers) {
         return answer.equals(inputNumbers);
     }
     // end::2-1. checkedOut[]

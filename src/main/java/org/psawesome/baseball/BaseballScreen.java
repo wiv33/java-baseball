@@ -52,10 +52,10 @@ public class BaseballScreen {
                 .info(this.answer)
                 .body(inputNumbers)
                 .build());
-        return isQuit(response);
+        return transferQuit(response);
     }
 
-    private BaseballResponse isQuit(BaseballResponse response) {
+    private BaseballResponse transferQuit(BaseballResponse response) {
         if (!response.getState().equals("end")) {
             return response;
         }
