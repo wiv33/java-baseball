@@ -4,9 +4,6 @@
 !gradle/wrapper/gradle-wrapper.jar
 /out/
 /target/
-*ScreenTest*
-StringTest*
-*wiv33*
 
 ### STS ###
 .apt_generated
