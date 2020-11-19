@@ -87,7 +87,7 @@ class StringTest {
     assertAll(
             () -> assertTrue(
                     assertThrows(StringIndexOutOfBoundsException.class, () -> this.extractByAt("abc", 3))
-                            .getMessage().contains("out of range: 3")),
+                            .getMessage().matches("\\w+ index out of range: \\d+")),
             () -> assertTrue(assertThrows(Exception.class, () -> this.extractByAt("", -1))
                     .getMessage().contains("index out of range: -1")));
 
